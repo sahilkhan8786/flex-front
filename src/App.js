@@ -18,12 +18,14 @@ function App() {
           pass: process.env.REACT_APP_PASSWORD,
         })
         .then((response) => {
+          // console.log(response.data.filter(el => el.fulfilled !== null))
           response.data.forEach((elem) => console.log(
             // elem,
             elem.paid_amount,
             elem.payments[0].total_paid_amount,
             elem.order_items[0].full_unit_price
           ))
+
           setData(response.data)
           setLoading(false);
         })

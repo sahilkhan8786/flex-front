@@ -369,7 +369,15 @@ const Dashboard = ({ orders, loading }) => {
       setCSV(orders);
       setnewData(orders);
       setFilter(status);
-    } else {
+    }
+    else if (status === "Fulfilled") {
+      setSs("All")
+      setCSV(orders)
+      setnewData(orders.filter(el => el.fulfilled !== null))
+      // data.filter(el => el.fulfilled !== null
+      setFilter(status);
+    }
+    else {
       // setSs("");
       setSs("All");
       const filtered = orders.filter((elem) => {
@@ -514,6 +522,13 @@ const Dashboard = ({ orders, loading }) => {
                     type="button"
                   >
                     All
+                  </li>
+                  <li
+                    className="dropdown-item"
+                    type="button"
+                    onClick={(e) => FilterStatus(e.target.innerText)}
+                  >
+                    Fulfilled
                   </li>
                   <li
                     className="dropdown-item"
