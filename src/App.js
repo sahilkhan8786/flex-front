@@ -4,7 +4,6 @@ import axios from "axios";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./Pages/Dashboard";
 import Login from "./Pages/Login";
-axios.defaults.defaults = 'https://localhost:5000'
 function App() {
 
 
