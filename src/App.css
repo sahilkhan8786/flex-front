@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.barcode{
+    height: 100px !important;
+}
+
+.ant-table-cell{
+    font-size: 0.95rem;
+    white-space: nowrap !important;
+}
+
+.ant-table-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.ant-table-wrapper{
+overflow-x: scroll;
+}
