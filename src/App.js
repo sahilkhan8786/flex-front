@@ -19,6 +19,7 @@ function App() {
         })
         .then((response) => {
           // console.log(response.data.filter(el => el.fulfilled !== null))
+          console.log(response.data)
           response.data.forEach((elem) => console.log(
             // elem,
             elem.paid_amount,
