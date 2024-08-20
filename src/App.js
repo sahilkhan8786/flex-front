@@ -18,8 +18,8 @@ function App() {
           pass: process.env.REACT_APP_PASSWORD,
         })
         .then((response) => {
-          // console.log(response.data.filter(el => el.fulfilled !== null))
-          console.log(response.data)
+          console.log(response.data.filter(el => el.fulfilled !== null))
+
           response.data.forEach((elem) => console.log(
             // elem,
             elem.paid_amount,

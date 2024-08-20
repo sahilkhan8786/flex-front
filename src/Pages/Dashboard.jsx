@@ -363,31 +363,70 @@ const Dashboard = ({ orders, loading }) => {
     }),
   ];
 
+  const collectOrderNumbers = [
+    2000009079841222,
+    2000006199060329,
+    2000009079230764,
+    2000006198441873,
+    2000006198159045,
+    2000009077868278,
+    2000009076934070,
+    2000009076261002,
+    2000006196820187,
+    2000009072404018,
+    2000006195034877,
+    2000006199886511,
+    2000009081161248,
+    2000006199851837,
+    2000006199815105,
+    2000006199784253,
+    2000009077992396,
+    2000006199744357,
+    2000006199651015,
+  ];
+
+  const tagCollectOrders = (orders) => {
+    return orders.map(order => {
+      if (collectOrderNumbers.includes(order.id)) {
+        if (!order.tags.includes("collect")) {
+          return { ...order, tags: [...order.tags, "collect"] };
+        }
+      }
+      return order;
+    });
+  };
+
   const FilterStatus = (status) => {
     if (status === "All") {
       setSs("All");
       setCSV(orders);
       setnewData(orders);
       setFilter(status);
-    }
-    else if (status === "Fulfilled") {
-      setSs("All")
-      setCSV(orders)
-      setnewData(orders.filter(el => el.fulfilled !== null))
-      // data.filter(el => el.fulfilled !== null
-      setFilter(status);
-    }
-    else {
-      // setSs("");
+    } else if (status === "Fulfilled") {
       setSs("All");
-      const filtered = orders.filter((elem) => {
-        return elem.status === status.toLowerCase();
-      });
+      const fulfilledOrders = orders
+        .filter(order => !order.tags.includes("not_delivered")) // Exclude orders with the "not_delivered" tag
+        .filter(order => order.fulfilled !== null); // Include only fulfilled orders
+      setCSV(fulfilledOrders);
+      setnewData(fulfilledOrders);
+      setFilter(status);
+    } else if (status === "Collect") {
+      setSs("All");
+      const ordersWithCollectTag = tagCollectOrders(orders);
+      const collectOrders = ordersWithCollectTag.filter(order => order.tags.includes("collect"));
+      console.log(collectOrders);
+      setCSV(collectOrders);
+      setnewData(collectOrders);
+      setFilter(status);
+    } else {
+      setSs("All");
+      const filtered = orders.filter(elem => elem.status === status.toLowerCase());
       setCSV(filtered);
       setnewData(filtered);
       setFilter(status);
     }
   };
+
 
   useEffect(() => {
     DeliveredOrderPerDay("");
@@ -529,6 +568,13 @@ const Dashboard = ({ orders, loading }) => {
                     onClick={(e) => FilterStatus(e.target.innerText)}
                   >
                     Fulfilled
+                  </li>
+                  <li
+                    className="dropdown-item"
+                    type="button"
+                    onClick={(e) => FilterStatus(e.target.innerText)}
+                  >
+                    Collect
                   </li>
                   <li
                     className="dropdown-item"
